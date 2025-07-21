@@ -1,0 +1,14 @@
+﻿
+.box1 {
+    height:25rem;
+    background-size:cover;
+    background-position: center;
+    background-image: url('img/AboutUsTopImg.jpg');
+    background-repeat:no-repeat;
+}
+.overlay-topbox {
+    /*background: rgba(0, 0, 0, 0.4);*/
+}
+.AboutUsText {
+    font-size: clamp(1rem, 10vw, 5rem);
+}

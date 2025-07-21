@@ -1,0 +1,34 @@
+﻿@model E_Commerce.Models.ProductModel
+
+<div class="modal fade" id="AddQuantity-@Model.ProductId" tabindex="-1" aria-labelledby="modalLabel-@Model.ProductId" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <form asp-controller="Admin" asp-action="UpdateQuantity" method="post">
+                <div class="modal-header bg-success">
+                    <h5 class="modal-title text-white" id="modalLabel-@Model.ProductId">Add Quantity</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body text-center">
+                    <img src="@Model.Image" alt="@Model.FoodName" class="img-thumbnail mb-3" style="max-width: 90px;" />
+                    <h6 class="mb-3">Current Quantity: <strong>@Model.Stock</strong></h6>
+
+                    <input asp-for="ProductId" type="hidden" />
+
+                    <div class="mb-3">
+                        <label asp-for="Stock" class="form-label">Add Quantity</label>
+                        <input type="number" class="form-control" name="QuantityToAdd" min="1" required />
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="adminPassword-@Model.ProductId" class="form-label">Enter Security Password</label>
+                        <input type="password" name="adminPassword" class="form-control border-danger" placeholder="Enter your password" required />
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="submit" class="btn btn-success">Proceed</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

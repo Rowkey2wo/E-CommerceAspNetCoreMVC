@@ -1,0 +1,82 @@
+[
+  {
+    "id": 1,
+    "name": "Spring Rolls",
+    "category": "Appetizer",
+    "price": 120.00,
+    "description": "Crispy vegetable spring rolls served with sweet chili sauce.",
+    "image": "/css/img/SpringRolls.png"
+  },
+  {
+    "id": 2,
+    "name": "Garlic Bread",
+    "category": "Appetizer",
+    "price": 90.00,
+    "description": "Toasted bread slices with garlic butter and herbs.",
+    "image": "/css/img/GarlicBread.png"
+  },
+  {
+    "id": 3,
+    "name": "Mozzarella Sticks",
+    "category": "Appetizer",
+    "price": 110.00,
+    "description": "Golden fried mozzarella sticks served with marinara sauce.",
+    "image": "/css/img/MozzarellaSticks.png"
+  },
+  {
+    "id": 4,
+    "name": "Chicken Adobo",
+    "category": "Lunch",
+    "price": 180.00,
+    "description": "Classic Filipino chicken adobo simmered in soy sauce, vinegar, and garlic.",
+    "image": "/css/img/ChickenAdobo.png"
+  },
+  {
+    "id": 5,
+    "name": "Beef Tapa",
+    "category": "Lunch",
+    "price": 200.00,
+    "description": "Tender marinated beef strips served with garlic rice and egg.",
+    "image": "/css/img/BeefTapa.png"
+  },
+  {
+    "id": 6,
+    "name": "Chicken Teriyaki Rice Bowl",
+    "category": "Lunch",
+    "price": 170.00,
+    "description": "Grilled chicken glazed in teriyaki sauce served over steamed rice.",
+    "image": "/css/img/ChickenTeriyakiRiceBowl.png"
+  },
+  {
+    "id": 7,
+    "name": "Grilled Salmon",
+    "category": "Dinner",
+    "price": 250.00,
+    "description": "Grilled salmon fillet served with vegetables and lemon butter sauce.",
+    "image": "/css/img/GrilledSalmon.png"
+  },
+  {
+    "id": 8,
+    "name": "Pasta Alfredo",
+    "category": "Dinner",
+    "price": 190.00,
+    "description": "Creamy fettuccine pasta with white sauce and mushrooms.",
+    "image": "/css/img/PastaAlfredo.png"
+  },
+  {
+    "id": 9,
+    "name": "Sirloin Steak",
+    "category": "Dinner",
+    "price": 320.00,
+    "description": "Juicy sirloin steak grilled to perfection, served with mashed potatoes and vegetables.",
+    "image": "/css/img/SirloinSteak.png"
+  },
+  {
+    "id": 10,
+    "name": "Easy Cheesy Beef Chilli Loaded Sweet Potato",
+    "category": "Dinner",
+    "price": 240.00,
+    "description": "Baked sweet potato loaded with cheesy beef chilli and sour cream topping.",
+    "image": "/css/img/EasyCheesyBeefChilliLoadedSweetPotato.png"
+  }
+]

@@ -1,0 +1,125 @@
+﻿@model Transaction
+
+@{
+    ViewData["Title"] = "Order Details";
+}
+
+<div class="container mt-5">
+    <h2 class="mb-4">Order Details</h2>
+
+    <!-- Order Summary -->
+    <div class="card mb-4">
+        <div class="card-body">
+            <h5 class="card-title">Order Summary</h5>
+            <p><strong>Transaction ID:</strong> @Model.TransactionID</p>
+            <p><strong>User Email:</strong> @Model.UserEmail</p>
+            <p><strong>Total Amount:</strong> ₱@Model.TotalAmount</p>
+            <p><strong>Discount:</strong> @Model.Discount%</p>
+            <p><strong>Payment Method:</strong> @Model.ModeOfPayment</p>
+            <p><strong>Shipping Address:</strong> @Model.ShippingAddress</p>
+            <p><strong>Date:</strong> @Model.DateAndTimeTransaction.ToString("MMMM dd, yyyy - hh:mm tt")</p>
+            <p><strong>Status:</strong> @Model.OrderStatus</p>
+        </div>
+    </div>
+
+    <!-- Delivery Progress -->
+    <h5 class="fw-bold mt-5 mb-3">Delivery Progress</h5>
+    <div class="position-relative mb-4" style="height: 4px; background-color: #e9ecef;">
+        <div id="progress-line" class="position-absolute top-0 start-0 h-100 bg-success" style="width: 0%; transition: width 0.4s;"></div>
+    </div>
+
+    <div class="d-flex justify-content-between text-center">
+        <div class="flex-fill">
+            <i class="fa fa-clock fa-lg d-block mb-2 text-muted step-icon" id="step1-icon"></i>
+            <span class="small d-block">Pending</span>
+        </div>
+        <div class="flex-fill">
+            <i class="fa fa-user-check fa-lg d-block mb-2 text-muted step-icon" id="step2-icon"></i>
+            <span class="small d-block">Accepted</span>
+        </div>
+        <div class="flex-fill">
+            <i class="fa fa-truck fa-lg d-block mb-2 text-muted step-icon" id="step3-icon"></i>
+            <span class="small d-block">Out for Delivery</span>
+        </div>
+        <div class="flex-fill">
+            <i class="fa fa-check-circle fa-lg d-block mb-2 text-muted step-icon" id="step4-icon"></i>
+            <span class="small d-block">Delivered</span>
+        </div>
+    </div>
+
+    <!-- Ordered Items -->
+    <div class="card mt-5">
+        <div class="card-body">
+            <h5 class="card-title">Ordered Items</h5>
+            <table class="table table-bordered">
+                <thead class="table-light">
+                    <tr>
+                        <th>Food Name</th>
+                        <th>Quantity</th>
+                        <th>Price (Each)</th>
+                        <th>Subtotal</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.Items)
+                    {
+                        <tr>
+                            <td>@item.FoodName</td>
+                            <td>@item.Quantity</td>
+                            <td>₱@item.Price</td>
+                            <td>₱@(item.Price * item.Quantity)</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        window.onload = function () {
+            var orderStatus = "@Model.OrderStatus";
+            const progressLine = document.getElementById("progress-line");
+
+            const steps = [
+                { id: "step1-icon", status: "Pending" },
+                { id: "step2-icon", status: "Accepted" },
+                { id: "step3-icon", status: "OutForDelivery" },
+                { id: "step4-icon", status: "Delivered" },
+            ];
+
+            let activeIndex = 0;
+
+            switch (orderStatus) {
+                case "Pending":
+                    activeIndex = 0;
+                    break;
+                case "Accepted":
+                    activeIndex = 1;
+                    break;
+                case "OutForDelivery":
+                    activeIndex = 2;
+                    break;
+                case "Delivered":
+                    activeIndex = 3;
+                    break;
+            }
+
+            for (let i = 0; i <= activeIndex; i++) {
+                const icon = document.getElementById(steps[i].id);
+                icon.classList.remove("text-muted");
+                icon.classList.add("text-success");
+            }
+
+            const progressWidths = ["5%", "33%", "66%", "100%"];
+            progressLine.style.width = progressWidths[activeIndex];
+        };
+    </script>
+}
+
+<style>
+    .step-icon {
+        font-size: 1.5rem;
+    }
+</style>

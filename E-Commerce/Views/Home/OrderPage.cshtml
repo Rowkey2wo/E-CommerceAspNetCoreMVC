@@ -1,0 +1,225 @@
+﻿@model List<ProductModel>
+@{
+    ViewData["Title"] = "HOME - ";
+}
+@{
+    var userAddress = Context.Session.GetString("UserAddress");
+}
+<input type="hidden" id="sessionUserAddress" value="@userAddress" />
+
+<div class="cart position-absolute w-25 d-flex justify-content-end pt-5">
+    <div class="cart-icon position-relative d-flex align-items-center px-3 bg-white mt-4">
+        <i class="fa-solid fa-cart-shopping fs-4 text-secondary"></i>
+        <span class="bg-success text-white rounded-circle d-flex align-items-end justify-content-center fw-bold position-absolute">0</span>
+    </div>
+</div>
+
+<div id="carouselExampleControls" class="container carousel slide" data-bs-ride="carousel">
+    <div class="carousel-inner">
+        <div class="carousel-item active">
+            <img src="/css/img/carousel_pic2.jpg" class="d-block w-100" alt="...">
+        </div>
+        <div class="carousel-item">
+            <img src="/css/img/carousel_pic2.jpg" class="d-block w-100" alt="...">
+        </div>
+        <div class="carousel-item">
+            <img src="/css/img/carousel_pic2.jpg" class="d-block w-100" alt="...">
+        </div>
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+    </button>
+</div>
+
+<div class="container-fluid mt-2 mt-md-5">
+
+    <div class="container cover rounded-2 mt-2 mt-md-4 w-100">
+        <div class="cover--overlay h-100 text-white d-flex flex-column justify-content-center align-items-center rounded-2">
+            <h1 class="fs-2">Quick Bite</h1>
+            <span>Serving Up Smiles, One Bite at a Time.</span>
+        </div>
+    </div>
+
+    <div class="food--container mt-5">
+
+        <div class="row px-4 d-flex justify-content-center">
+
+            <div class="col-12 col-md-8 col-lg-6 mb-4">
+                <div class="border bg-white rounded p-4 shadow-sm py-5">
+                    <h1 class="fs-5 text-muted">Search</h1>
+                    <div class="search--box ps-0 ps-md-3 w-100 mb-4">
+                        <i class="fa solid fa-magnifying-glass fs-5 me-2"></i>
+                        <input type="text" class="page1--searchInput bg-transparent w-75" placeholder="Search">
+                    </div>
+                    @* Price Range *@
+                    <h1 class="fs-5 text-muted mt-3">Price range</h1>
+                    <div class="my-2 ps-0 ps-md-3">
+                        <span>0</span>
+                        <input type="range" id="price-range" min="0" max="320" value="320" />
+                        <span id="price-output">P320</span>
+                    </div>
+                    @* Radio *@
+                    <h1 class="fs-5 text-muted mt-3">Type of Food</h1>
+                    <div class="my-3 ps-0 ps-md-3">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault1" value="all food" checked>
+                            <label class="form-check-label" for="flexRadioDefault1">
+                                All Food
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault2" value="appetizer">
+                            <label class="form-check-label" for="flexRadioDefault2">
+                                Appetizer
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault3" value="lunch">
+                            <label class="form-check-label" for="flexRadioDefault3">
+                                Lunch
+                            </label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="flexRadioDefault" id="flexRadioDefault4" value="dinner">
+                            <label class="form-check-label" for="flexRadioDefault4">
+                                Dinner
+                            </label>
+                        </div>
+                    </div>
+                    <button class="btn btn-primary w-100 mt-3" id="btnFilter">SEARCH FILTER</button>
+                </div>
+            </div>
+
+            <div class="col-sm-9">
+                <h1 class="label fs-2 fw-bold text-secondary mb-5 ps-0 ps-md-5" id="MainText">FOOD MENU</h1>
+                @* this is where the food shows *@
+                <div id="food--container">
+                    <div class="Food-menu mb-5 row row-cols-1 row-cols-md-3 row-cols-lg-4 gap-5 d-flex justify-content-center">
+                        @foreach(var food in Model){
+                            <div class="food--item col">
+                                <div class="card h-100">
+                                    <div class="h-100 d-flex align-items-center">
+                                        <img src="@food.Image" class="card-img-top" alt="@food.FoodName">
+                                    </div>
+                                    <div class="card-body d-flex flex-column">
+                                        <h5 class="card-title" data-category="@food.Category">@food.FoodName</h5>
+                                        <p class="card-text text-secondary">@food.Description</p>
+                                        <div class="card--price d-flex flex-column align-items-start">
+                                            <p class="price card-text fw-bold">P @food.Price</p>
+                                            @if (food.Stock > 0)
+                                            {
+                                                <button data-index="@food.ProductId"
+                                                        data-id="@food.ProductId"
+                                                        data-stock="@food.Stock"
+                                                        class="add-to-cart btn btn-success">
+                                                    Add To Cart
+                                                </button>
+                                            }
+                                            else
+                                            {
+                                                <button class="btn btn-secondary" disabled>Out of Stock</button>
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="cartbar" id="cartbar">
+        <div class="cartbar-close">
+            <i class="fa-solid fa-close"></i>
+        </div>
+        <div class="cart--menu">
+            <h3>My Cart</h3>
+            <div class="cart-items"></div>
+        </div>
+        <div class="cartbar--footer">
+            <div class="total--amount">
+                <h5 class="pt-1 me-2">Total </h5>
+                <div class="cart-total">₱0.00</div>
+            </div>
+            <button class="btn btn-primary w-100 checkout-btn">Checkout</button>
+        </div>
+    </div>
+
+    <!-- Address Warning Modal -->
+    <div class="modal fade" id="addressWarningModal" tabindex="-1" aria-labelledby="addressWarningLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header bg-danger text-white">
+                    <h5 class="modal-title" id="addressWarningLabel">Missing Address</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    You need to set your address in your profile before checking out.
+                </div>
+                <div class="modal-footer">
+                    <a href="/Account/Profile" class="btn btn-primary">Yes, Go to Profile</a>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Checkout Modal -->
+    <div class="modal fade" id="checkoutModal" tabindex="-1" aria-labelledby="checkoutModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header bg-warning">
+                    <h5 class="modal-title fw-bold" id="checkoutModalLabel">Order Summary</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+
+                    <div class="mb-3">
+                        <h6 class="fw-bold">Ordered Items:</h6>
+                        <ul class="list-group" id="checkoutItemsList"></ul>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="shippingAddress" class="form-label fw-bold">Shipping Address:</label>
+                        <textarea class="form-control" id="shippingAddress" rows="2" disabled>@userAddress</textarea>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="modeOfPayment" class="form-label fw-bold">Mode of Payment:</label>
+                        <select class="form-select" id="modeOfPayment">
+                            <option value="Cash on Delivery">Cash on Delivery</option>
+                            <option value="GCash">GCash</option>
+                            <option value="Bank Transfer">Bank Transfer</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <p><strong>Total Amount:</strong> <span id="checkoutTotal">₱0.00</span></p>
+                        <p><strong>Discount:</strong> <span id="checkoutDiscount">₱0.00</span></p>
+                        <p><strong>Final Total:</strong> <span id="checkoutFinalTotal">₱0.00</span></p>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button class="btn btn-success" id="confirmCheckout">Confirm Order</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+</div>
+
+@section Scripts {
+    <script src="~/js/OrderPage.js" asp-append-version="true"></script>
+}

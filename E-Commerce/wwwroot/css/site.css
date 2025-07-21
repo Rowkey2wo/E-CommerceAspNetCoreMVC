@@ -1,0 +1,257 @@
+html {
+    font-size: 14px;
+}
+
+@media (min-width: 768px) {
+    html {
+        font-size: 16px;
+    }
+}
+
+.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
+    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+}
+
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+body {
+    height: 100vh;
+    min-height: 100%;
+    margin-bottom: 60px;
+    overflow-x: hidden;
+}
+/*navbar*/
+.navbar {
+    background-color: #e3421c;
+}
+
+.nav-link {
+    color: black !important;
+    position: relative;
+    transition: color 0.3s ease;
+    text-decoration: none;
+}
+.nav-link::after {
+    color: black;
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 2px;
+    width: 0;
+    background-color: #fec106;
+    transition: width 0.5s ease;
+}
+.nav-link:hover,.nav-link:focus {
+    color: #fec106;
+}
+.nav-link:hover::after,
+.nav-link:focus::after {
+    width: 100%;
+}
+.nav-link.active {
+    color: #fec106 !important;
+}
+.nav-link.active::after {
+    width: 100%;
+}
+
+/*main content*/
+.search--box {
+    width: 70%;
+}
+
+.page1--searchInput {
+    border-bottom: 1px black solid;
+    border-top: none;
+    border-right: none;
+    border-left: none;
+}
+
+.cart {
+    z-index: 1000; /* make it higher than sidebar and nav */
+    top: 100px;     /* adjust based on your navbar height */
+    right: 0;       /* align to the right */
+    position: fixed !important;
+}
+
+.cart-icon {
+    border: 1px solid black;
+    border-top-left-radius: 30px;
+    border-bottom-left-radius: 30px;
+    width: 80px;
+    height: 60px;
+    cursor: pointer;
+    background-color: white;
+}
+
+.cart-icon span {
+    position: absolute;
+    height: 25px;
+    width: 30px;
+    font-size: 17px;
+    right: 10px;
+    top: 5px;
+}
+
+
+
+.carousel{
+}
+.carousel-item{
+    background-size: cover;
+    background-position: center;
+}
+
+/* cover-section */
+.cover {
+    background-image: url('img/spag.jpg');
+    background-size:auto;
+    height: 25vh;
+    background-position: center;
+}
+
+.cover--overlay {
+    background: rgba(0, 0, 0, 0.6);
+}
+
+.header{
+    border: 1px solid black;
+}
+/* card */
+.card--price {
+    z-index: 1001;
+}
+.card {
+    box-shadow: 0px 10px 15px -3px rgba(0, 0, 0, 0.4);
+}
+
+/* sidebar */
+.cartbar {
+    width: 300px;
+    height: 100%;
+    position: fixed;
+    top: 0;
+    /*right: 0;*/
+    right: -300px;
+    background-color: white;
+    box-shadow: -4px 0 6px rgba(0, 0, 0, 0.1);
+    transition: right ease-in-out;
+    z-index: 5000;
+    padding: 20px;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
+}
+
+.cartbar.open {
+    right: 0;
+}
+
+.cartbar-close {
+    position: absolute;
+    right: 20px;
+    cursor: pointer;
+}
+
+.cart-tems {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 1rem;
+}
+
+.individual-cart-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 5px;
+    border-radius: 5px;
+    color: gray;
+    border: 1px solid #d6e8db;
+}
+
+.card-item-price {
+    color: #99a98f;
+}
+
+.cartbar--footer {
+    position: absolute;
+    bottom: 10px;
+    width: 80%;
+}
+
+.total--amount {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid var(--decent-color);
+    border-radius: 5px;
+    padding: 15px 10px;
+}
+
+.card-total {
+    font-size: 16px;
+    color: #99a98f;
+    font-weight: 500;
+}
+
+.checkout-btn {
+    width: 100%;
+    margin-top: 1rem;
+    background: rgb(9,189,9);
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    padding: 10px;
+}
+
+/* login */
+.login-container {
+    height: 85vh;
+}
+.register-container {
+    height: 85vh;
+}
+.form-login {
+    box-shadow: -10px 7px 10px rgba(0, 0, 0, 0.5);
+}
+.wrap-login {
+    margin-left: -5px;
+}
+@media (max-width: 768px){
+    .login-logo {
+        box-shadow: -10px 7px 10px rgba(0, 0, 0, 0.5);
+    }
+    .form-register {
+        box-shadow: -10px 7px 10px rgba(0, 0, 0, 0.5);
+    }
+    .login-container {
+        height: 100vh;
+    }
+    .register-container {
+        height: 110vh;
+    }
+    .register-logo{
+        max-height: 290px !important;
+    }
+    .login-logo {
+        max-height: 290px !important;
+    }
+    .wrap-login {
+        margin-left: 0;
+    }
+}
+.sidebar {
+    height: 100vh;
+    position: sticky;
+    top: 0;
+}
+
+@media (max-width: 767.98px) {
+    .sidebar {
+        position: relative;
+        height: auto;
+    }
+}

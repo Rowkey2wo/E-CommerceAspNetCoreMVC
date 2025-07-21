@@ -1,0 +1,73 @@
+﻿@model List<Transaction>
+@{
+    ViewData["Title"] = "Available Bookings";
+}
+
+<div class="container py-5">
+    <h2 class="mb-4"><i class="fas fa-biking me-2"></i>Available Bookings</h2>
+
+    @if (Model != null && Model.Any())
+    {
+        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+            @foreach (var booking in Model)
+            {
+                <div class="col">
+                    <div class="card border-info h-100 shadow-sm">
+                        <div class="card-header bg-info text-white">
+                            <i class="fas fa-receipt me-2"></i>Transaction #@booking.TransactionID
+                        </div>
+                        <div class="card-body">
+                            <p><i class="fas fa-user me-1"></i><strong>User:</strong> @booking.UserEmail</p>
+                            <p><i class="fas fa-map-marker-alt me-1"></i><strong>Address:</strong> @booking.ShippingAddress</p>
+                            <p><i class="fas fa-calendar-alt me-1"></i><strong>Date:</strong> @booking.DateAndTimeTransaction.ToString("MMM dd, yyyy hh:mm tt")</p>
+                            <p><i class="fas fa-money-bill-wave me-1"></i><strong>Total:</strong> ₱@booking.TotalAmount.ToString("N2")</p>
+                            <p><i class="fas fa-tags me-1"></i><strong>Order Status:</strong> <span class="badge bg-warning text-dark">@booking.OrderStatus</span></p>
+                        </div>
+                        <div class="card-footer text-end bg-light">
+                            <form asp-action="AcceptBooking" asp-controller="Rider" method="post">
+                                <input type="hidden" name="transactionId" value="@booking.TransactionID" />
+                                <button type="submit" class="btn btn-outline-success btn-sm">
+                                    <i class="fas fa-check-circle me-1"></i>Accept Booking
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+    else
+    {
+        <div class="alert alert-secondary mt-3" role="alert">
+            <i class="fas fa-info-circle me-1"></i>No pending bookings available.
+        </div>
+    }
+</div>
+@if (TempData["IncompleteProfile"] != null && (bool)TempData["IncompleteProfile"])
+{
+    <script>
+        window.onload = function () {
+            var myModal = new bootstrap.Modal(document.getElementById('incompleteProfileModal'));
+            myModal.show();
+        }
+    </script>
+
+    <!-- Bootstrap Modal -->
+    <div class="modal fade" id="incompleteProfileModal" tabindex="-1" aria-labelledby="incompleteProfileModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header bg-warning text-dark">
+                    <h5 class="modal-title" id="incompleteProfileModalLabel"><i class="fas fa-user-edit me-2"></i>Complete Your Profile</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>You must complete your rider profile before accepting bookings.</p>
+                </div>
+                <div class="modal-footer">
+                    <a href="@Url.Action("RiderUpdateInfo", "Rider")" class="btn btn-primary">Proceed</a>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+}

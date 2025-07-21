@@ -1,0 +1,82 @@
+﻿@model E_Commerce.Models.UserModel
+@{
+    ViewData["Title"] = "PROFILE - ";
+}
+
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-6">
+
+            @if (TempData["Error"] != null)
+            {
+                <div class="alert alert-danger text-center">
+                    @TempData["Error"]
+                </div>
+            }
+
+            <div class="card shadow-lg rounded-4">
+                <div class="card-body p-4">
+                    <h2 class="text-center text-warning fw-bold mb-4">User Profile</h2>
+
+                    <form id="profileForm" asp-action="UpdateProfile" method="post">
+                        
+                        <div class="mb-3">
+                            <label asp-for="Email" class="form-label fw-bold">Email</label>
+                            <input asp-for="Email" type="email" class="form-control" readonly />
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="Address" class="form-label fw-bold">Address</label>
+                            <input asp-for="Address" type="text" class="form-control" placeholder="Enter your address" required />
+                            <span asp-validation-for="Address" class="text-danger"></span>
+                        </div>
+
+                        <hr />
+
+                        
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">New Password</label>
+                            <input type="password" name="NewPassword" class="form-control" placeholder="Enter new password" />
+                        </div>
+
+                        
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Confirm New Password</label>
+                            <input type="password" name="ConfirmNewPassword" class="form-control" placeholder="Confirm new password" />
+                        </div>
+
+                        <div class="d-grid mt-4">
+                            <button type="button" class="btn btn-warning fw-bold" data-bs-toggle="modal" data-bs-target="#confirmModal">
+                                Update Profile
+                            </button>
+                        </div>
+
+                        <div class="modal fade" id="confirmModal" tabindex="-1" aria-labelledby="confirmModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="confirmModalLabel">Confirm Update</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="mb-3">
+                                            <label for="currentPassword" class="form-label">Enter your current password to confirm:</label>
+                                            <input type="password" class="form-control" name="CurrentPassword" id="currentPassword" required />
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="submit" class="btn btn-success">Confirm</button>
+                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </form>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

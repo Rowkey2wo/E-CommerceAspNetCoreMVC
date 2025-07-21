@@ -1,0 +1,36 @@
+﻿@model List<E_Commerce.Models.Transaction>
+@{
+    ViewData["Title"] = "Booking History";
+}
+
+<div class="container py-5">
+    <h3 class="mb-3">Assigned Bookings</h3>
+
+    <table class="table table-bordered table-hover">
+        <thead class="table-dark">
+            <tr>
+                <th>ID</th>
+                <th>User Email</th>
+                <th>Amount</th>
+                <th>Status</th>
+                <th>Mode of Payment</th>
+                <th>Date</th>
+                <th>Shipping Address</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var t in Model)
+            {
+                <tr>
+                    <td>@t.TransactionID</td>
+                    <td>@t.UserEmail</td>
+                    <td>₱@t.TotalAmount</td>
+                    <td>@t.OrderStatus</td>
+                    <td>@t.ModeOfPayment</td>
+                    <td>@t.DateAndTimeTransaction.ToString("yyyy-MM-dd HH:mm")</td>
+                    <td>@t.ShippingAddress</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

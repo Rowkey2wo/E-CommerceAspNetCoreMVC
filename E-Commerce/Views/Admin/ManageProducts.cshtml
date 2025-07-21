@@ -1,0 +1,152 @@
+﻿@model List<ProductModel>
+@{
+    ViewData["Title"] = "Products - ";
+    int page = Convert.ToInt32(Context.Request.Query["page"]);
+    if (page <= 0) page = 1;
+    int pageSize = 5;
+    var pagedModel = Model.Skip((page - 1) * pageSize).Take(pageSize).ToList();
+    int totalPages = (int)Math.Ceiling(Model.Count / (double)pageSize);
+}
+
+<style>
+    .badge-appetizer {
+        background-color: #28a745;
+    }
+
+    .badge-lunch {
+        background-color: #ffc107;
+    }
+
+    .badge-dinner {
+        background-color: #e83e8c;
+    }
+
+    .badge-drink {
+        background-color: #0d6efd;
+    }
+
+    .badge-other {
+        background-color: #6c757d;
+    }
+</style>
+
+<div class="container py-4">
+    @if (TempData["Success"] != null)
+    {
+        <div class="alert alert-success">@TempData["Success"]</div>
+    }
+    @if (TempData["Error"] != null)
+    {
+        <div class="alert alert-danger">@TempData["Error"]</div>
+    }
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div>
+            <h3 class="fw-bold mb-1">Managing Products</h3>
+            <p class="text-muted mb-0">Manage your food items efficiently</p>
+        </div>
+        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#AddNewProductModel">
+            <i class="fa fa-plus me-2"></i> Add New
+        </button>
+    </div>
+
+    @await Html.PartialAsync("Modals/_AddProductModal", new ProductModel())
+
+
+    <div class="card shadow-sm border-0 rounded-3">
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-hover align-middle mb-0">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Image</th>
+                            <th>Name</th>
+                            <th>Price</th>
+                            <th>Category</th>
+                            <th>Quantity</th>
+                            <th class="text-center">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var food in pagedModel)
+                        {
+                            var category = food.Category?.ToLowerInvariant().Trim() ?? "other";
+                            var badgeClass = category switch
+                            {
+                                "appetizer" => "badge-appetizer",
+                                "lunch" => "badge-lunch",
+                                "dinner" => "badge-dinner",
+                                "drink" => "badge-drink",
+                                _ => "badge-other"
+                            };
+                            var isLowStock = food.Stock <= 20;
+                            var rowClass = isLowStock ? "table-danger" : "";
+
+                            <tr class="@rowClass">
+                                <td><img src="@food.Image" alt="@food.FoodName" class="img-thumbnail" style="max-width: 90px;" /></td>
+                                <td><div class="fw-semibold">@food.FoodName</div></td>
+                                <td>₱@food.Price.ToString("F2")</td>
+                                <td><span class="badge @badgeClass text-white px-3 py-2 rounded-pill">@food.Category</span></td>
+                                <td>
+                                    @if (food.Stock == 0)
+                                    {
+                                        <span class="badge bg-danger px-3 py-2 rounded-pill">Out of Stock</span>
+                                    }
+                                    else
+                                    {
+                                        @food.Stock
+                                    }
+                                </td>
+                                <td class="text-center">
+                                    <div class="d-flex justify-content-center gap-3 flex-wrap">
+                                        <!-- Add Quantity -->
+                                        <button class="btn btn-outline-success btn-sm" data-bs-toggle="modal" data-bs-target="#AddQuantity-@food.ProductId" title="Add Quantity">
+                                            <i class="fa-solid fa-cart-plus"></i>
+                                        </button>
+
+                                        <!-- Edit -->
+                                        <button class="btn btn-outline-primary btn-sm" data-bs-toggle="modal" data-bs-target="#UpdateProduct-@food.ProductId" title="Edit Product">
+                                            <i class="fa-solid fa-pen-to-square"></i>
+                                        </button>
+
+                                        <!-- Delete Button -->
+                                        <button class="btn btn-outline-danger btn-sm"
+                                                data-bs-toggle="modal"
+                                                data-bs-target="#DeleteProduct-@food.ProductId"
+                                                title="Delete Product">
+                                            <i class="fa-solid fa-trash"></i>
+                                        </button>
+
+                                    </div>
+                                </td>
+                            </tr>
+
+                            <!-- Update Modal Partial -->
+                            @await Html.PartialAsync("Modals/_UpdateProductModal", food)
+                            <!-- Add Quantity Modal Partial -->
+                            @await Html.PartialAsync("Modals/_AddQuantityModal", food)
+                            <!-- Add Quantity Modal Partial -->
+                            @await Html.PartialAsync("Modals/_DeleteProductModal", food)
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- Pagination -->
+    <nav class="mt-4">
+        <ul class="pagination justify-content-center">
+            @for (int i = 1; i <= totalPages; i++)
+            {
+                <li class="page-item @(i == page ? "active" : "")">
+                    <a class="page-link" href="?page=@i">@i</a>
+                </li>
+            }
+        </ul>
+    </nav>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

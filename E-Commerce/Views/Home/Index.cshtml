@@ -1,0 +1,90 @@
+﻿@{
+    ViewData["Title"] = "Welcome to GetYerFood";
+}
+
+<div class="text-white text-center d-flex align-items-center justify-content-center" style="background-image: url('/css/img/hero-food.png'); background-size: cover; background-position: center; height: 90vh;">
+    <div class="bg-dark bg-opacity-75 p-5 rounded">
+        <h1 class="display-3 fw-bold">Savor the Taste of Perfection</h1>
+        <p class="lead mt-3">Fresh ingredients, mouth-watering recipes, and a passion for great food — delivered hot to your door.</p>
+        <a asp-controller="Account" asp-action="Login" class="btn btn-warning btn-lg mt-4 px-5">Order Now</a>
+    </div>
+</div>
+
+<section class="container text-center py-5">
+    <h2 class="fw-bold text-danger mb-4">Our Signature Dishes</h2>
+    <p class="mb-5">From Easy Cheesy Beef Chili Loaded Sweet Potato to Sirloin Steak with Fries and creamy Pasta Alfredo, our signature dishes are crafted daily with the freshest ingredients to bring you comfort and flavor in every bite.</p>
+    <div class="row g-4">
+        <div class="col-md-4">
+            <div class="card h-100 shadow-sm">
+                <img src="/css/img/EasyCheesyBeefChilliLoadedSweetPotato.png" class="card-img-top" alt="Burger">
+                <div class="card-body mt-5">
+                    <h5 class="card-title fw-bold">Easy Cheesy Beef Chilli Loaded Sweet Potato</h5>
+                    <p class="card-text">Baked sweet potato loaded with cheesy beef chilli and sour cream topping. ₱240</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card h-100 shadow-sm">
+                <img src="/css/img/SirloinSteak.png" class="card-img-top d-flex mx-auto" alt="Pizza" style="max-height: 300px; width: 70%">
+                <div class="card-body mt-4">
+                    <h5 class="card-title fw-bold">Serloin Steak with Fries</h5>
+                    <p class="card-text">Juicy sirloin steak grilled to perfection, served with mashed potatoes and vegetables. ₱320</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card h-100 shadow-sm">
+                <img src="/css/img/PastaAlfredo.png" class="card-img-top" alt="Wrap">
+                <div class="card-body mt-5">
+                    <h5 class="card-title fw-bold">Pasta Alfredo</h5>
+                    <p class="card-text">Creamy fettuccine pasta with white sauce and mushrooms. ₱190</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="bg-light py-5">
+    <div class="container text-center">
+        <h2 class="fw-bold text-danger mb-4">They Love Us ❤️</h2>
+        <p class="mb-5">Our happy customers keep coming back for more. Here’s what they say:</p>
+        <div class="row g-4">
+            <div class="col-md-4">
+                <div class="bg-white p-4 shadow-sm rounded">
+                    <h6 class="fw-bold mb-1">Best Salad Mart!</h6>
+                    <p class="text-muted mb-2">“Everything I ordered was a little piece of heaven. I’ll definitely be back!”</p>
+                    <div class="text-warning mb-2">
+                        ★★★★★
+                    </div>
+                    <small class="text-muted">— Larry A., greensnacc</small>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="bg-white p-4 shadow-sm rounded">
+                    <h6 class="fw-bold mb-1">Amazing Experience</h6>
+                    <p class="text-muted mb-2">“Prompt delivery and everything was still hot and tasty. Highly recommend.”</p>
+                    <div class="text-warning mb-2">
+                        ★★★★★
+                    </div>
+                    <small class="text-muted">— Maria C., foodiechick</small>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="bg-white p-4 shadow-sm rounded">
+                    <h6 class="fw-bold mb-1">Great Value</h6>
+                    <p class="text-muted mb-2">“Delicious food at affordable prices. What more could you ask for?”</p>
+                    <div class="text-warning mb-2">
+                        ★★★★★
+                    </div>
+                    <small class="text-muted">— John D., budgetbites</small>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="bg-danger text-white text-center py-5">
+    <h2 class="fw-bold mb-3">Don’t Wait — Order Now!</h2>
+    <p class="mb-4">Join thousands of happy customers. Hot meals are just a click away.</p>
+    <a asp-controller="Account" asp-action="Login" class="btn btn-light btn-lg px-5 py-2">Login & Order</a>
+</section>

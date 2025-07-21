@@ -1,0 +1,31 @@
+﻿@model E_Commerce.Models.Rider
+@{
+    ViewData["Title"] = "Update Profile";
+}
+
+<div class="container mt-5">
+    <h2><i class="fas fa-user-edit me-2"></i>Update Rider Profile</h2>
+
+    <form asp-action="RiderUpdateInfo" method="post">
+        <div class="mb-3">
+            <label asp-for="FullName" class="form-label"></label>
+            <input asp-for="FullName" class="form-control" />
+            <span asp-validation-for="FullName" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="ContactNumber" class="form-label"></label>
+            <input asp-for="ContactNumber" class="form-control" />
+            <span asp-validation-for="ContactNumber" class="text-danger"></span>
+        </div>
+
+        <div class="mb-3">
+            <label asp-for="VehicleInfo" class="form-label"></label>
+            <input asp-for="VehicleInfo" class="form-control" />
+            <span asp-validation-for="VehicleInfo" class="text-danger"></span>
+        </div>
+
+        <button type="submit" class="btn btn-success"><i class="fas fa-save me-1"></i>Save</button>
+        <a asp-action="RiderDashboard" class="btn btn-secondary ms-2">Cancel</a>
+    </form>
+</div>

@@ -1,0 +1,29 @@
+﻿@model UserModel
+
+<div class="modal fade" id="UserDetailModal-@Model.Id" tabindex="-1" aria-labelledby="UserDetailModalLabel-@Model.Id" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content shadow">
+            <div class="modal-header">
+                <h5 class="modal-title" id="userModalLabel-@Model.Id">User Details - @Model.Email</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+
+            <div class="modal-body">
+                <p><strong>Email:</strong> @Model.Email</p>
+                <p><strong>Role:</strong> @Model.Role</p>
+                <p><strong>Address:</strong> @Model.Address</p>
+            </div>
+
+            <div class="modal-footer">
+                <a asp-controller="Account" asp-action="UpdateUser" asp-route-id="@Model.Id" class="btn btn-primary">
+                    Update
+                </a>
+
+                <form asp-controller="Admin" asp-action="DeleteUser" method="post" onsubmit="return confirm('Are you sure?');">
+                    <input type="hidden" name="Id" value="@Model.Id" />
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

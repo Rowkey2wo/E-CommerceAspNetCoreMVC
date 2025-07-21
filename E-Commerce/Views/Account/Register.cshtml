@@ -1,0 +1,62 @@
+﻿@model E_Commerce.Models.UserModel
+@{
+    ViewData["Title"] = "SIGN UP - ";
+}
+
+<div class="register-container container-fluid d-flex justify-content-center align-items-center rounded-3 w-100">
+    <div class="row w-75 d-flex flex-column flex-md-row">
+
+        <div class="wrap-register col-12 col-md-6 p-0 d-flex justify-content-start">
+            <form asp-action="ProcessRegister" method="post" class="form-register bg-light rounded-4 shadow-lg border w-100 h-auto p-2 ms-n3">
+                <div class="d-flex justify-content-center">
+                    <h1 class="fs-2 fw-bolder text-warning">SIGN UP</h1>
+                </div>
+                <hr />
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                <div class="input-group mb-3 justify-content-center">
+                    <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+                    <div class="form-floating w-75">
+                        <input type="email" asp-for="Email" class="form-control" id="emailInput" placeholder="EMAIL">
+                        <label asp-for="Email" for="emailInput">EMAIL</label>
+                    </div>
+                    <span asp-validation-for="Email" class="text-danger"></span>
+                </div>
+
+                <div class="input-group mb-3 justify-content-center">
+                    <span class="input-group-text"><i class="fas fa-lock"></i></span>
+                    <div class="form-floating w-75">
+                        <input type="password" asp-for="Password" class="form-control" id="passwordInput" placeholder="PASSWORD">
+                        <label asp-for="Password" for="passwordInput">PASSWORD</label>
+                    </div>
+                    <span asp-validation-for="Password" class="text-danger"></span>
+                </div>
+
+                <div class="input-group mb-3 justify-content-center">
+                    <span class="input-group-text"><i class="fas fa-lock"></i></span>
+                    <div class="form-floating w-75">
+                        <input type="password" name="ConfirmPassword" class="form-control" id="confirmInput" placeholder="CONFIRM PASSWORD">
+                        <label for="confirmInput">CONFIRM PASSWORD</label>
+                    </div>
+                </div>
+
+                <div class="container d-flex flex-row ps-5">
+                    <p>Already have an account?</p>
+                    <a href="/Account/Login" class="ms-1">Login</a>
+                </div>
+                <input type="hidden" value="" />
+
+                <div class="d-flex justify-content-center pb-3">
+                    <button type="submit" class="btn btn-warning fw-bold w-75">CREATE ACCOUNT</button>
+                </div>
+            </form>
+        </div>
+
+        <div class="col-12 col-md-6 p-0 border d-flex justify-content-end">
+            <img src="/css/img/LOGO.png" alt="GetYerFoodLogo" class="img-fluid register-logo" style="width:100%;max-height: 30rem;">
+        </div>
+    </div>
+</div>
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
