@@ -115,6 +115,60 @@ namespace E_Commerce.Controllers
             return View(transaction);
         }
 
+        public IActionResult History()
+        {
+            var userEmail = HttpContext.Session.GetString("UserEmail");
+            var userRole = HttpContext.Session.GetString("UserRole");
+
+            if (string.IsNullOrEmpty(userEmail) || string.IsNullOrEmpty(userRole))
+            {
+                TempData["Error"] = "Unauthorized access. Please log in.";
+                return RedirectToAction("Login", "Account");
+            }
+
+            List<Transaction> history;
+
+            if (userRole == "Admin")
+            {
+                history = _DB.Transactions
+                    .Include(t => t.Items)
+                    .Include(t => t.Rider)
+                    .ThenInclude(r => r.User)
+                    .Where(t => t.OrderStatus == "Delivered")
+                    .OrderByDescending(t => t.DateAndTimeTransaction)
+                    .ToList();
+            }
+            else if (userRole == "Rider")
+            {
+                var user = _DB.Users.FirstOrDefault(u => u.Email == userEmail);
+                if (user == null)
+                {
+                    TempData["Error"] = "Rider account not found.";
+                    return RedirectToAction("Login", "Account");
+                }
+
+                var rider = _DB.Riders.FirstOrDefault(r => r.UserId == user.Id);
+                if (rider == null)
+                {
+                    TempData["Error"] = "Rider profile not found.";
+                    return RedirectToAction("Login", "Account");
+                }
+
+                history = _DB.Transactions
+                    .Include(t => t.Items)
+                    .Where(t => t.OrderStatus == "Delivered" && t.RiderId == rider.RiderId)
+                    .OrderByDescending(t => t.DateAndTimeTransaction)
+                    .ToList();
+            }
+            else
+            {
+                return RedirectToAction("TransactionIndex");
+            }
+
+            return View(history);
+        }
+
+
 
 
     }

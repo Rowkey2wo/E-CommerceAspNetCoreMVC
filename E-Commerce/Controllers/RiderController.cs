@@ -192,7 +192,7 @@ namespace E_Commerce.Controllers
             transaction.OrderStatus = "OutForDelivery";
             await _DB.SaveChangesAsync();
 
-            return RedirectToAction("OrderView", new { id = transaction.TransactionID });
+            return RedirectToAction("OrderView", "Transaction", new { id = transaction.TransactionID });
         }
 
         [HttpPost]
@@ -204,7 +204,7 @@ namespace E_Commerce.Controllers
             transaction.OrderStatus = "Delivered";
             await _DB.SaveChangesAsync();
 
-            return RedirectToAction("OrderView", new { id = transaction.TransactionID });
+            return RedirectToAction("OrderView", "Transaction", new { id = transaction.TransactionID });
         }
 
         [HttpGet]

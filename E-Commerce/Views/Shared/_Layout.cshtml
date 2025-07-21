@@ -23,9 +23,9 @@
 <body>
     @if (!isLoginPage && !isRegisterPage && !isLandingPage && !isLoginProcess && !isRegisterProcess)
     {
-        <div class="offcanvas offcanvas-start bg-dark text-white" tabindex="-1" id="sidebarOffcanvas">
+        <div class="offcanvas offcanvas-start bg-light text-white" tabindex="-1" id="sidebarOffcanvas">
             <div class="offcanvas-header border-bottom">
-                <h5 class="offcanvas-title text-white">@userEmailLoggedIn</h5>
+                <h5 class="offcanvas-title">@userEmailLoggedIn</h5>
                 <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"></button>
             </div>
             <div class="offcanvas-body d-flex flex-column justify-content-between">
@@ -33,24 +33,33 @@
                     @if (userRole == "Admin")
                     {
                         <li class="nav-item mb-2">
-                            <a class="nav-link text-white @(currentAction == "Dashboard" ? "active bg-secondary rounded" : "")"
+                            <a class="nav-link @(currentAction == "Dashboard" ? "active bg-secondary rounded" : "")"
                                asp-controller="Admin" asp-action="Dashboard">
                                 <i class="fa-solid fa-chart-line me-2"></i>Dashboard
                             </a>
                         </li>
                     }
                     <li class="nav-item mb-2">
-                        <a class="nav-link text-white @(currentAction == "OrderPage" ? "active bg-secondary rounded" : "")"
+                        <a class="nav-link  @(currentAction == "OrderPage" ? "active bg-secondary rounded" : "")"
                            asp-controller="Home" asp-action="OrderPage">
                             <i class="fa-solid fa-basket-shopping me-2"></i>Order
                         </a>
                     </li>
                     <li class="nav-item mb-2">
-                        <a class="nav-link text-white @(currentAction == "TransactionIndex" ? "active bg-secondary rounded" : "")"
+                        <a class="nav-link @(currentAction == "TransactionIndex" ? "active bg-secondary rounded" : "")"
                            asp-controller="Transaction" asp-action="TransactionIndex">
                             <i class="fa-solid fa-receipt me-2"></i>Transaction
                         </a>
                     </li>
+                    @if (userRole == "Admin" || userRole == "Rider")
+                    {
+                        <li class="nav-item mb-2">
+                            <a class="nav-link @(currentAction == "History" ? "active bg-secondary rounded" : "")"
+                               asp-controller="Transaction" asp-action="History">
+                                <i class="fa-solid fa-clock-rotate-left me-2"></i>Transaction History
+                            </a>
+                        </li>
+                    }
                 </ul>
                 <div>
                     <hr class="text-secondary" />
@@ -108,6 +117,15 @@
                                 <i class="fa-solid fa-receipt me-2"></i>Transaction
                             </a>
                         </li>
+                        @if (userRole == "Admin" || userRole == "Rider")
+                        {
+                            <li class="nav-item mb-2">
+                                <a class="nav-link @(currentAction == "History" ? "active bg-secondary rounded" : "")"
+                                   asp-controller="Transaction" asp-action="History">
+                                    <i class="fa-solid fa-clock-rotate-left me-2"></i>Transaction History
+                                </a>
+                            </li>
+                        }
                         <li class="nav-item mb-2">
                             <a class="nav-link @(currentAction == "About" ? "active bg-secondary rounded" : "")"
                                asp-controller="Home" asp-action="About">
