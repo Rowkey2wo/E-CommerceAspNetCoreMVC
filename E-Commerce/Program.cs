@@ -1,4 +1,4 @@
-using E_Commerce.Data;
+﻿using E_Commerce.Data;
 using E_Commerce.Models;
 using Microsoft.EntityFrameworkCore;
 
@@ -16,6 +16,12 @@ builder.Services.Configure<AdminSettings>(
 
 
 var app = builder.Build();
+using (var scope = app.Services.CreateScope())
+{
+    var db = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+    db.Database.Migrate();
+    DbInitializer.SeedAdmin(db);
+}
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
